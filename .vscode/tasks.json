@@ -1,0 +1,239 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-install-core-deps",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pip",
+				"install",
+				"-r",
+				"backend/requirements.txt"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "frontend-build",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"cd frontend && npm install && npm run build"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pip",
+				"install",
+				"-r",
+				"backend/requirements.txt"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "frontend-build",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"cd frontend && npm run build"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "frontend-build",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"cd frontend && npm run build"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "frontend-build",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"cd frontend && npm run build"
+			],
+			"isBackground": false
+		}
+	]
+}

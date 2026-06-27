@@ -1,0 +1,53 @@
+SunCarbon Black Agronomy Trial Design Reference v1
+
+Section 1.0 Purpose
+This document provides standard trial design templates for SunCarbon Black field trials conducted with FPOs and progressive farmer groups.
+
+Section 2.0 Recommended Trial Design
+Standard Randomised Complete Block Design (RCBD):
+- Minimum 3 replications per treatment
+- Plot size: 0.1 acre per treatment block
+- Treatments: T1 (Farmer practice), T2 (T1 + SunCarbon Black soil drench), T3 (T1 + soil drench + foliar)
+- Border rows: minimum 2 rows on all sides
+- Buffer zone between treatments: minimum 1 metre
+
+Section 3.0 Data Collection Schedule
+Pre-trial (Day 0):
+- Soil sample collection for pH, EC, SOC, NPK baseline
+- Farmer practice documentation (current inputs, irrigation, crop variety)
+
+During trial:
+- Day 15: Plant count, germination uniformity
+- Day 30: Plant height, leaf count, SPAD reading
+- Day 45: Branching, flowering initiation, pest/disease observation
+- Day 60: Fruit/boll setting (if applicable), chlorophyll measurement
+- Day 75: Canopy coverage estimate
+- Day 90: Final vegetative assessment before harvest
+
+At harvest:
+- Plot-wise yield recording (kg per plot, converted to kg per acre)
+- Sample submission for grain/fibre quality where applicable
+
+Section 4.0 Controls and Governance
+- Control plots must follow the same crop management practices as treatment plots (irrigation, pesticide, fertiliser) except for SunCarbon Black.
+- All field observations must be recorded by the agronomy partner or FPO representative.
+- Data sheets to be submitted to company within 5 days of each observation.
+- Any variance from trial protocol must be flagged as a risk in the proposal.
+
+Section 5.0 Expected Outcomes by Crop
+Paddy (Kharif):
+- Target: 5–10% higher yield in treatment plots
+- Key metric: panicle count per square metre, grain weight
+
+Cotton (Kharif):
+- Target: 8–15% higher seed cotton yield
+- Key metric: bolls per plant, boll weight
+
+Maize (Rabi):
+- Target: 6–12% yield advantage
+- Key metric: cob length, grains per row
+
+Section 6.0 Reporting Requirements
+- Mid-trial report at Day 45 including photos and observations
+- Final trial report within 30 days of harvest
+- Report must include: trial protocol, observations, yield summary, cost-benefit analysis, and recommendation

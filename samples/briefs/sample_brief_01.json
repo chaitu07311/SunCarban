@@ -1,0 +1,16 @@
+{
+  "crop_type": "Cotton",
+  "geography": "Maharashtra",
+  "season": "Kharif",
+  "acreage": 120,
+  "number_of_farmers": 45,
+  "soil_issues": "Low organic carbon",
+  "trial_objective": "Increase yield and improve soil structure",
+  "application_method": "Soil drench",
+  "duration_days": 90,
+  "pricing_inputs": {
+    "target_price": 4000,
+    "discount_percent": 5
+  },
+  "commercial_notes": "Pilot with two FPO clusters"
+}

@@ -1,0 +1,40 @@
+SunCarbon Black FPO Pricing Reference v1
+
+Section 1.0 Pricing Model
+This document provides reference pricing guidelines for SunCarbon Black commercial proposals to FPOs and farmer groups.
+
+Section 2.0 Base Pricing
+Standard product pricing (ex-warehouse):
+- Pouch (500g): INR 350 per unit
+- Bag (5 kg): INR 2,800 per unit
+- Bulk sack (25 kg): INR 12,500 per unit
+
+FPO volume discount tiers:
+- 50–100 kg order: 5% discount on ex-warehouse rate
+- 101–500 kg order: 10% discount
+- 501 kg and above: 15% discount (subject to approval)
+
+Section 3.0 Trial Pricing (Pilot Programs)
+For structured crop trials, the following indicative pricing applies:
+- Trial input cost target: INR 400–600 per acre (including product + application)
+- FPO pilot pricing: INR 3,200–4,000 per 5 kg unit (trial rate)
+- Custom pricing for orders above INR 5 lakh requires national sales head approval.
+
+Section 4.0 Payment Terms
+- Net 30 from delivery for established FPOs with prior order history
+- Advance 50% for new FPO partners on first order
+- Credit notes issued within 7 days for shortage or quality complaints
+
+Section 5.0 Cost-Benefit Reference for Proposals
+Expected economic return per acre (cotton, Kharif, Maharashtra):
+- Incremental yield: 60–90 kg seed cotton per acre (treated vs. control)
+- Value of incremental yield: INR 3,000–4,500 at INR 5,500 per quintal
+- Input cost of SunCarbon Black per acre: INR 400–500
+- Net expected benefit per acre: INR 2,500–4,000
+
+Note: These are reference estimates based on field trial data. Actual results depend on soil type, variety, season, and management practices. All commercial proposals must state this clearly.
+
+Section 6.0 Assumptions to Validate in Proposals
+- Confirm current market price for the crop in target geography
+- Confirm input cost benchmark with FPO finance lead
+- Validate trial acreage and logistics cost before pricing sign-off

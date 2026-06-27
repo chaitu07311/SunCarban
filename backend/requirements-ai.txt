@@ -1,0 +1,4 @@
+langgraph==0.2.43
+langchain==0.3.7
+chromadb==0.5.17
+sentence-transformers==3.2.1

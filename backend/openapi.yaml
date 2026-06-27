@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: SunCarbon Proposal Co-Pilot API
+  version: 0.1.0
+paths:
+  /api/v1/auth/login:
+    post:
+      summary: User login
+  /api/v1/auth/register:
+    post:
+      summary: User registration
+  /api/v1/briefs:
+    get:
+      summary: List client briefs
+    post:
+      summary: Create client brief
+  /api/v1/briefs/{brief_id}:
+    get:
+      summary: Get a client brief
+    put:
+      summary: Update a client brief
+  /api/v1/briefs/{brief_id}/validation:
+    get:
+      summary: Validate missing and ambiguous fields for a brief
+  /api/v1/documents/{brief_id}:
+    post:
+      summary: Upload document for a brief
+  /api/v1/documents/{document_id}/reindex:
+    post:
+      summary: Re-index a document
+  /api/v1/documents/indexing/summary:
+    get:
+      summary: Get knowledge base indexing summary (supports brief_id and since_days filters)
+  /api/v1/documents/brief/{brief_id}:
+    get:
+      summary: List documents for a brief
+  /api/v1/proposals:
+    get:
+      summary: List proposals
+    post:
+      summary: Generate proposal from brief
+  /api/v1/proposals/{proposal_id}:
+    get:
+      summary: Get proposal details
+  /api/v1/proposals/{proposal_id}/citations:
+    get:
+      summary: Get proposal citations
+  /api/v1/reviews:
+    post:
+      summary: Submit review decision
+  /api/v1/reviews/proposal/{proposal_id}:
+    get:
+      summary: List reviews for a proposal
+  /api/v1/audit-logs:
+    get:
+      summary: List audit log entries

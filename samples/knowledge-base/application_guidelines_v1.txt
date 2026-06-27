@@ -1,0 +1,39 @@
+SunCarbon Black Application Guidelines v1
+
+Section 1.0 Product Overview
+SunCarbon Black is a carbon-based soil and foliar amendment designed to enhance soil organic matter, improve water retention, and boost microbial activity. It is suitable for use across paddy, cotton, maize, soybean, and horticulture crops.
+
+Section 2.1 Soil Application
+- Apply as soil drench during pre-irrigation stage before sowing or transplanting.
+- Recommended dosage: 3 to 5 kg per acre for mineral soils with SOC < 0.5%.
+- For soils with SOC 0.5–1.0%: apply 2 to 3 kg per acre.
+- Mix with irrigation water for uniform distribution across the field.
+- Application timing: ideally 7 to 10 days before sowing for maximum activation.
+
+Section 2.2 Foliar Application
+- Dilute at 2 to 3 ml per litre of water.
+- Apply as fine mist spray during early vegetative and flowering stages.
+- Avoid application in direct sunlight or temperatures above 35°C.
+- Recommended intervals: once every 15 days during critical growth windows.
+
+Section 3.1 Crop-Specific Notes
+Cotton:
+  - Soil drench at pre-sowing followed by one foliar at 30 DAS.
+  - Expected yield benefit: 8–12% vs. untreated control in low-SOC soils.
+Paddy:
+  - Soil drench recommended at transplanting stage.
+  - Foliar at tillering for maximum effect.
+Maize:
+  - Soil drench at sowing + foliar at 4-leaf and tassel stage.
+
+Section 4.3 Monitoring
+- Measure vegetative growth, leaf chlorophyll score, and moisture retention fortnightly.
+- Compare treatment and control groups with equal acreage split.
+- Document soil temperature, rainfall events, and irrigation schedule.
+- Use SPAD meter for chlorophyll readings; record at 30, 60, and 90 DAS.
+
+Section 5.0 Storage and Handling
+- Store in a cool, dry place away from direct sunlight.
+- Shelf life: 24 months from date of manufacture.
+- Do not mix with mineral fertilizers before field application.
+- Use clean water free of chlorine for dilution.

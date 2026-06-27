@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f6faf8;
+  --ink: #183128;
+}
+
+body {
+  background: linear-gradient(140deg, #f8fcfa 0%, #eef7f2 50%, #fdfdfd 100%);
+  color: var(--ink);
+}
