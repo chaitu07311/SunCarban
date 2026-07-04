@@ -31,18 +31,40 @@ def startup_event() -> None:
                 db.add(Role(name=role_name, permissions={}))
         db.commit()
 
-        admin_role = db.query(Role).filter(Role.name == "admin").first()
-        admin_user = db.query(User).filter(User.email == "admin@suncarban.local").first()
-        if not admin_user and admin_role:
-            db.add(
-                User(
-                    email="admin@suncarban.local",
-                    full_name="System Admin",
-                    password_hash=get_password_hash("admin123"),
-                    role_id=admin_role.id,
+        seed_accounts = [
+            {
+                "email": "sales@suncarban.local",
+                "full_name": "System Sales",
+                "password": "sales123",
+                "role": "sales_user",
+            },
+            {
+                "email": "reviewer@suncarban.local",
+                "full_name": "System Reviewer",
+                "password": "reviewer123",
+                "role": "reviewer",
+            },
+            {
+                "email": "admin@suncarban.local",
+                "full_name": "System Admin",
+                "password": "admin123",
+                "role": "admin",
+            },
+        ]
+
+        for account in seed_accounts:
+            role = db.query(Role).filter(Role.name == account["role"]).first()
+            user = db.query(User).filter(User.email == account["email"]).first()
+            if not user and role:
+                db.add(
+                    User(
+                        email=account["email"],
+                        full_name=account["full_name"],
+                        password_hash=get_password_hash(account["password"]),
+                        role_id=role.id,
+                    )
                 )
-            )
-            db.commit()
+        db.commit()
     finally:
         db.close()
 

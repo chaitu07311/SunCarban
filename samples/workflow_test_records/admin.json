@@ -1,0 +1,65 @@
+[
+  {
+    "record_id": "admin-01",
+    "role": "admin",
+    "email": "admin@suncarban.local",
+    "title": "Audit Trail Check",
+    "page": "/audit-trail",
+    "action": "Load audit logs",
+    "description": "Confirm brief creation and review actions are visible in the audit trail.",
+    "payload": {
+      "expected_events": ["brief_created", "proposal_generated", "review_submitted"]
+    }
+  },
+  {
+    "record_id": "admin-02",
+    "role": "admin",
+    "email": "admin@suncarban.local",
+    "title": "Admin Settings Review",
+    "page": "/admin-settings",
+    "action": "Inspect governance thresholds",
+    "description": "Check that the current thresholds and feature flags are visible to admin users.",
+    "payload": {
+      "settings": ["enable_langgraph", "enable_chroma_retrieval", "retrieval_confidence_threshold", "retrieval_top_k"]
+    }
+  },
+  {
+    "record_id": "admin-03",
+    "role": "admin",
+    "email": "admin@suncarban.local",
+    "title": "Knowledge Base Summary Check",
+    "page": "/knowledge-base",
+    "action": "Refresh summary",
+    "description": "Use this to verify indexing metrics after uploads from the sales workflow.",
+    "payload": {
+      "summary_filters": {
+        "brief_id": 1,
+        "since_days": 30
+      }
+    }
+  },
+  {
+    "record_id": "admin-04",
+    "role": "admin",
+    "email": "admin@suncarban.local",
+    "title": "Proposal Viewer QA",
+    "page": "/proposal-viewer",
+    "action": "Open generated proposal",
+    "description": "Validate that approved proposals render correctly after admin review checks.",
+    "payload": {
+      "proposal_id": 1
+    }
+  },
+  {
+    "record_id": "admin-05",
+    "role": "admin",
+    "email": "admin@suncarban.local",
+    "title": "Role Access QA",
+    "page": "/admin-settings",
+    "action": "Verify role permissions",
+    "description": "Use this record to confirm admin access covers briefs, proposals, reviews, and audit logs.",
+    "payload": {
+      "roles": ["sales_user", "reviewer", "admin"]
+    }
+  }
+]

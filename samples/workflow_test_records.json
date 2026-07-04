@@ -1,0 +1,260 @@
+[
+  {
+    "record_id": "sales-01",
+    "role": "sales_user",
+    "email": "sales@suncarban.local",
+    "title": "Cotton Kharif Brief - Maharashtra",
+    "page": "/brief",
+    "action": "Create brief",
+    "description": "Draft a cotton proposal brief for a Kharif trial in Maharashtra.",
+    "payload": {
+      "crop_type": "Cotton",
+      "geography": "Maharashtra",
+      "season": "Kharif",
+      "acreage": 120,
+      "number_of_farmers": 45,
+      "soil_issues": "Low organic carbon",
+      "trial_objective": "Increase yield and improve soil structure",
+      "application_method": "Soil drench",
+      "duration_days": 90,
+      "pricing_inputs": {
+        "target_price": 4000,
+        "discount_percent": 5
+      },
+      "commercial_notes": "Pilot with two FPO clusters"
+    }
+  },
+  {
+    "record_id": "sales-02",
+    "role": "sales_user",
+    "email": "sales@suncarban.local",
+    "title": "Paddy Rabi Brief - Telangana",
+    "page": "/brief",
+    "action": "Create brief",
+    "description": "Create a paddy trial brief for irrigated farms in Telangana.",
+    "payload": {
+      "crop_type": "Paddy",
+      "geography": "Telangana",
+      "season": "Rabi",
+      "acreage": 80,
+      "number_of_farmers": 28,
+      "soil_issues": "Poor moisture retention",
+      "trial_objective": "Improve water efficiency and tiller count",
+      "application_method": "Soil drench",
+      "duration_days": 75,
+      "pricing_inputs": {
+        "target_price": 3500,
+        "discount_percent": 10
+      },
+      "commercial_notes": "Single FPO with 3 village clusters"
+    }
+  },
+  {
+    "record_id": "sales-03",
+    "role": "sales_user",
+    "email": "sales@suncarban.local",
+    "title": "Maize Trial Brief - Karnataka",
+    "page": "/brief",
+    "action": "Create brief",
+    "description": "Prepare a maize benchmark brief for a progressive farmers group.",
+    "payload": {
+      "crop_type": "Maize",
+      "geography": "Karnataka",
+      "season": "Kharif",
+      "acreage": 60,
+      "number_of_farmers": 22,
+      "soil_issues": "Low nutrient availability",
+      "trial_objective": "Validate yield uplift and stand uniformity",
+      "application_method": "Foliar spray",
+      "duration_days": 60,
+      "pricing_inputs": {
+        "target_price": 4200,
+        "discount_percent": 7
+      },
+      "commercial_notes": "Use as comparison case for maize package"
+    }
+  },
+  {
+    "record_id": "sales-04",
+    "role": "sales_user",
+    "email": "sales@suncarban.local",
+    "title": "Soybean Soil Health Brief - Madhya Pradesh",
+    "page": "/brief",
+    "action": "Create brief",
+    "description": "Create a soybean-focused brief to test soil health messaging.",
+    "payload": {
+      "crop_type": "Soybean",
+      "geography": "Madhya Pradesh",
+      "season": "Kharif",
+      "acreage": 95,
+      "number_of_farmers": 34,
+      "soil_issues": "Compacted soil and poor infiltration",
+      "trial_objective": "Improve root development and moisture retention",
+      "application_method": "Soil drench",
+      "duration_days": 85,
+      "pricing_inputs": {
+        "target_price": 3800,
+        "discount_percent": 8
+      },
+      "commercial_notes": "Check compatibility with existing crop inputs"
+    }
+  },
+  {
+    "record_id": "sales-05",
+    "role": "sales_user",
+    "email": "sales@suncarban.local",
+    "title": "Horticulture Trial Brief - Gujarat",
+    "page": "/brief",
+    "action": "Create brief",
+    "description": "Build a horticulture brief for orchard soil conditioning.",
+    "payload": {
+      "crop_type": "Horticulture",
+      "geography": "Gujarat",
+      "season": "Summer",
+      "acreage": 40,
+      "number_of_farmers": 18,
+      "soil_issues": "Salinity and uneven moisture",
+      "trial_objective": "Improve root zone health and fruit set",
+      "application_method": "Foliar spray",
+      "duration_days": 100,
+      "pricing_inputs": {
+        "target_price": 5000,
+        "discount_percent": 6
+      },
+      "commercial_notes": "High-value crop; validate ROI carefully"
+    }
+  },
+  {
+    "record_id": "review-01",
+    "role": "reviewer",
+    "email": "reviewer@suncarban.local",
+    "title": "Review Cotton Proposal v1",
+    "page": "/review-workflow",
+    "action": "Approve proposal",
+    "description": "Approve a cotton proposal with a short comment and validate pricing assumptions.",
+    "payload": {
+      "proposal_id": 1,
+      "decision": "approved",
+      "comments": "Commercial assumptions are reasonable. Proceed to pilot."
+    }
+  },
+  {
+    "record_id": "review-02",
+    "role": "reviewer",
+    "email": "reviewer@suncarban.local",
+    "title": "Review Paddy Proposal v2",
+    "page": "/review-workflow",
+    "action": "Reject proposal",
+    "description": "Reject a paddy proposal if dosage or evidence is missing.",
+    "payload": {
+      "proposal_id": 2,
+      "decision": "rejected",
+      "comments": "Need clearer dosage guidance and field protocol before approval."
+    }
+  },
+  {
+    "record_id": "review-03",
+    "role": "reviewer",
+    "email": "reviewer@suncarban.local",
+    "title": "Review Maize Proposal v3",
+    "page": "/review-workflow",
+    "action": "Approve proposal",
+    "description": "Test reviewer approval after checking citations and governance flags.",
+    "payload": {
+      "proposal_id": 3,
+      "decision": "approved",
+      "comments": "Citations are sufficient and governance checks are acceptable."
+    }
+  },
+  {
+    "record_id": "review-04",
+    "role": "reviewer",
+    "email": "reviewer@suncarban.local",
+    "title": "Review Soybean Proposal v4",
+    "page": "/review-workflow",
+    "action": "Approve proposal",
+    "description": "Use this record to validate reviewer login on a second proposal stream.",
+    "payload": {
+      "proposal_id": 4,
+      "decision": "approved",
+      "comments": "Good structure. Include farmer-wise implementation notes in final draft."
+    }
+  },
+  {
+    "record_id": "review-05",
+    "role": "reviewer",
+    "email": "reviewer@suncarban.local",
+    "title": "Review Horticulture Proposal v5",
+    "page": "/review-workflow",
+    "action": "Reject proposal",
+    "description": "Flag a high-value crop proposal that needs stronger commercial justification.",
+    "payload": {
+      "proposal_id": 5,
+      "decision": "rejected",
+      "comments": "ROI assumptions need more evidence for horticulture rollout."
+    }
+  },
+  {
+    "record_id": "admin-01",
+    "role": "admin",
+    "email": "admin@suncarban.local",
+    "title": "Audit Trail Check",
+    "page": "/audit-trail",
+    "action": "Load audit logs",
+    "description": "Confirm brief creation and review actions are visible in the audit trail.",
+    "payload": {
+      "expected_events": ["brief_created", "proposal_generated", "review_submitted"]
+    }
+  },
+  {
+    "record_id": "admin-02",
+    "role": "admin",
+    "email": "admin@suncarban.local",
+    "title": "Admin Settings Review",
+    "page": "/admin-settings",
+    "action": "Inspect governance thresholds",
+    "description": "Check that the current thresholds and feature flags are visible to admin users.",
+    "payload": {
+      "settings": ["enable_langgraph", "enable_chroma_retrieval", "retrieval_confidence_threshold", "retrieval_top_k"]
+    }
+  },
+  {
+    "record_id": "admin-03",
+    "role": "admin",
+    "email": "admin@suncarban.local",
+    "title": "Knowledge Base Summary Check",
+    "page": "/knowledge-base",
+    "action": "Refresh summary",
+    "description": "Use this to verify indexing metrics after uploads from the sales workflow.",
+    "payload": {
+      "summary_filters": {
+        "brief_id": 1,
+        "since_days": 30
+      }
+    }
+  },
+  {
+    "record_id": "admin-04",
+    "role": "admin",
+    "email": "admin@suncarban.local",
+    "title": "Proposal Viewer QA",
+    "page": "/proposal-viewer",
+    "action": "Open generated proposal",
+    "description": "Validate that approved proposals render correctly after admin review checks.",
+    "payload": {
+      "proposal_id": 1
+    }
+  },
+  {
+    "record_id": "admin-05",
+    "role": "admin",
+    "email": "admin@suncarban.local",
+    "title": "Role Access QA",
+    "page": "/admin-settings",
+    "action": "Verify role permissions",
+    "description": "Use this record to confirm admin access covers briefs, proposals, reviews, and audit logs.",
+    "payload": {
+      "roles": ["sales_user", "reviewer", "admin"]
+    }
+  }
+]
