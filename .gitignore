@@ -55,3 +55,7 @@ desktop.ini
 
 # Docker volumes / temp
 *.log
+
+# Uploaded files (runtime storage)
+backend/storage/uploads/*
+!backend/storage/uploads/.gitkeep

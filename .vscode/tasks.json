@@ -348,6 +348,18 @@
 				"$tsc"
 			],
 			"group": "test"
+		},
+		{
+			"label": "backend-tests",
+			"type": "shell",
+			"command": "d:\\Projects\\SunCarban\\.venv\\Scripts\\python.exe",
+			"args": [
+				"-m",
+				"pytest",
+				"-q",
+				"backend/tests"
+			],
+			"isBackground": false
 		}
 	]
 }
