@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: suncarban-backend
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 60
+      - key: CORS_ALLOW_ORIGINS
+        sync: false
+      - key: ENABLE_LANGGRAPH
+        value: false
+      - key: ENABLE_CHROMA_RETRIEVAL
+        value: false
+      - key: ENABLE_LANGFUSE
+        value: false
+      - key: ROUTE_MODEL_ROUTER_ENABLED
+        value: true
+      - key: ROUTE_MODEL_CASCADE_ENABLED
+        value: true
+      - key: ROUTE_MODEL_COMPLEXITY_THRESHOLD
+        value: 0.45
+      - key: ROUTE_MODEL_CONFIDENCE_THRESHOLD
+        value: 0.70
+      - key: ROUTE_MODEL_LITE_NAME
+        value: deterministic-lite
+      - key: ROUTE_MODEL_STRONG_NAME
+        value: deterministic-strong

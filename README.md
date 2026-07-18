@@ -84,3 +84,11 @@ The UI pages include an `API Auth` bar for quick login/register using the MVP JW
 	- `ROUTE_MODEL_CASCADE_ENABLED=true` to allow escalation from lite to strong route when confidence is low or governance flags appear.
 	- Route thresholds: `ROUTE_MODEL_COMPLEXITY_THRESHOLD` and `ROUTE_MODEL_CONFIDENCE_THRESHOLD`.
 	- If optional AI dependencies are not installed, the workflow safely falls back to deterministic local logic.
+
+## Team Review Deployment
+- Stable team review setup docs are in `DEPLOYMENT.md`.
+- Backend blueprint for Render is in `render.yaml`.
+- Recommended stack:
+	- Frontend: Vercel
+	- Backend: Render
+	- Database: Neon Postgres
