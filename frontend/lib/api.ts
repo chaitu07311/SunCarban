@@ -19,6 +19,8 @@ export type ProposalResponse = {
   citations: Array<Record<string, unknown>>;
   governance_flags: string[];
   status: string;
+  trace_id?: string | null;
+  model_route?: Record<string, unknown> | null;
 };
 
 export type ReviewResponse = {
@@ -34,6 +36,7 @@ export type AuditLogResponse = {
   action: string;
   entity_type: string;
   entity_id: number;
+  payload: Record<string, unknown>;
   timestamp: string;
 };
 

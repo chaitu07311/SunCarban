@@ -90,6 +90,8 @@ def test_proposal_and_review_flow(client):
     )
     assert proposal_response.status_code == 200
     proposal_id = proposal_response.json()["id"]
+    assert proposal_response.json()["trace_id"].startswith("trace_")
+    assert proposal_response.json()["model_route"]["selected_model"]
 
     citations = client.get(
         f"/api/v1/proposals/{proposal_id}/citations",
@@ -97,6 +99,20 @@ def test_proposal_and_review_flow(client):
     )
     assert citations.status_code == 200
     assert isinstance(citations.json(), list)
+
+    loaded_proposal = client.get(
+        f"/api/v1/proposals/{proposal_id}",
+        headers={"Authorization": f"Bearer {sales_token}"},
+    )
+    assert loaded_proposal.status_code == 200
+    assert loaded_proposal.json()["trace_id"].startswith("trace_")
+    assert loaded_proposal.json()["model_route"]["selected_model"]
+
+    audit_logs = client.get(
+        "/api/v1/audit-logs",
+        headers={"Authorization": f"Bearer {sales_token}"},
+    )
+    assert audit_logs.status_code == 403
 
     # Reviewer approves and can list review history.
     client.post(
@@ -129,17 +145,40 @@ def test_proposal_and_review_flow(client):
     assert review_list.status_code == 200
     assert len(review_list.json()) >= 1
 
+    reviewer_audit_logs = client.get(
+        "/api/v1/audit-logs",
+        headers={"Authorization": f"Bearer {reviewer_token}"},
+    )
+    assert reviewer_audit_logs.status_code == 200
+    proposal_events = [
+        row for row in reviewer_audit_logs.json()
+        if row["action"] == "proposal_generated" and row["entity_id"] == proposal_id
+    ]
+    assert proposal_events
+    assert proposal_events[0]["payload"]["trace_id"].startswith("trace_")
+    assert proposal_events[0]["payload"]["model_route"]["selected_model"]
+
 
 def test_admin_can_read_audit_logs(client):
     login = _login(client, "admin@suncarban.local", "admin123")
     assert login.status_code == 200
     token = login.json()["access_token"]
+    proposals = client.get(
+        "/api/v1/proposals",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert proposals.status_code == 200
+    assert proposals.json()[0]["trace_id"].startswith("trace_")
+    assert proposals.json()[0]["model_route"]["selected_model"]
+    assert len(proposals.json()[0]["governance_flags"]) >= 1
+
     response = client.get(
         "/api/v1/audit-logs",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert response.status_code == 200
     assert isinstance(response.json(), list)
+    assert "payload" in response.json()[0]
 
 
 def test_document_upload_and_reindex_flow(client):

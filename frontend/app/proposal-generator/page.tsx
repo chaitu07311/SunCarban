@@ -50,6 +50,12 @@ export default function ProposalGeneratorPage() {
             <strong>Status:</strong> {proposal.status}
           </p>
           <p>
+            <strong>Trace ID:</strong> {proposal.trace_id || "Not available"}
+          </p>
+          <p>
+            <strong>Selected Model:</strong> {String(proposal.model_route?.selected_model ?? "Unknown")}
+          </p>
+          <p>
             <strong>Governance Flags:</strong> {proposal.governance_flags.join(", ") || "None"}
           </p>
         </div>

@@ -79,6 +79,8 @@ class Proposal(Base):
     content: Mapped[str] = mapped_column(Text, nullable=False)
     citations: Mapped[list] = mapped_column(JSON, default=list)
     governance_flags: Mapped[list] = mapped_column(JSON, default=list)
+    trace_id: Mapped[str] = mapped_column(String(80), default="")
+    model_route: Mapped[dict] = mapped_column(JSON, default=dict)
     status: Mapped[str] = mapped_column(String(30), default="pending_review")
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 

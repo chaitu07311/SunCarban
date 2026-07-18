@@ -23,6 +23,7 @@ python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 pip install -r requirements-ai.txt  # optional, for full local RAG/agent integrations
+alembic upgrade head
 pytest -q
 uvicorn app.main:app --reload --port 8000
 ```
@@ -74,7 +75,12 @@ The UI pages include an `API Auth` bar for quick login/register using the MVP JW
 ## Notes
 - Current implementation provides the architecture-aligned starter with working API flow and screen scaffolding.
 - Agent workflow now includes node-based orchestration (Analyzer -> Retriever -> Drafter -> Governance).
+- Database schema changes should be applied with `alembic upgrade head` from [backend/alembic.ini](/d:/Projects/SunCarban/backend/alembic.ini).
 - Optional runtime toggles:
 	- `ENABLE_LANGGRAPH=true` to run graph execution using LangGraph.
 	- `ENABLE_CHROMA_RETRIEVAL=true` to use Chroma retrieval path (requires indexed collection).
+	- `ENABLE_LANGFUSE=true` to emit workflow trace and node spans (requires `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, optional `LANGFUSE_HOST`).
+	- `ROUTE_MODEL_ROUTER_ENABLED=true` to enable heuristic model selection metadata.
+	- `ROUTE_MODEL_CASCADE_ENABLED=true` to allow escalation from lite to strong route when confidence is low or governance flags appear.
+	- Route thresholds: `ROUTE_MODEL_COMPLEXITY_THRESHOLD` and `ROUTE_MODEL_CONFIDENCE_THRESHOLD`.
 	- If optional AI dependencies are not installed, the workflow safely falls back to deterministic local logic.

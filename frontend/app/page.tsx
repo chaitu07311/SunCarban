@@ -33,6 +33,8 @@ const DEV_ACCOUNTS = [
 export default function DashboardPage() {
   const [briefCount, setBriefCount] = useState(0);
   const [pendingReviewCount, setPendingReviewCount] = useState(0);
+  const [strongRouteCount, setStrongRouteCount] = useState(0);
+  const [latestTraceId, setLatestTraceId] = useState("");
   const [message, setMessage] = useState("Use API Auth and click Refresh Metrics.");
 
   async function loadMetrics() {
@@ -41,6 +43,10 @@ export default function DashboardPage() {
       const proposals = await listProposals();
       setBriefCount(briefs.length);
       setPendingReviewCount(proposals.filter((p) => p.status === "pending_review").length);
+      setStrongRouteCount(
+        proposals.filter((proposal) => proposal.model_route?.selected_model === "deterministic-strong").length,
+      );
+      setLatestTraceId(proposals[0]?.trace_id ?? "");
       setMessage("Metrics refreshed from backend API.");
     } catch (error) {
       setMessage((error as Error).message);
@@ -83,7 +89,7 @@ export default function DashboardPage() {
           </table>
         </div>
       </SectionCard>
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-4">
         <SectionCard title="Active Briefs">
           <p className="text-3xl font-semibold">{briefCount}</p>
           <p className="text-sm text-slate-600">Total briefs in system</p>
@@ -96,7 +102,14 @@ export default function DashboardPage() {
           <p className="text-3xl font-semibold">&lt; 5 min</p>
           <p className="text-sm text-slate-600">Target SLA for proposal generation</p>
         </SectionCard>
+        <SectionCard title="Strong Route Runs">
+          <p className="text-3xl font-semibold">{strongRouteCount}</p>
+          <p className="text-sm text-slate-600">Proposals escalated to the stronger route</p>
+        </SectionCard>
       </div>
+      <SectionCard title="Latest Trace">
+        <p className="text-sm text-slate-700">{latestTraceId || "Refresh metrics to load the latest proposal trace."}</p>
+      </SectionCard>
     </div>
   );
 }

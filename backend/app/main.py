@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import inspect, text
 
 from app.core.config import settings
 from app.core.security import get_password_hash
@@ -20,9 +21,124 @@ app.add_middleware(
 )
 
 
+def _build_sample_governance_flags(brief: ClientBrief, proposal: Proposal) -> list[str]:
+    flags: list[str] = list(proposal.governance_flags or [])
+
+    if not flags and brief.soil_issues:
+        flags.append(f"Validate baseline soil condition: {brief.soil_issues}")
+
+    if proposal.status == "pending_review":
+        flags.append("Final reviewer sign-off pending")
+    elif proposal.status == "rejected":
+        flags.append("Address reviewer concerns before resubmission")
+
+    if not flags:
+        flags.append("No blocking governance issues detected")
+
+    # Preserve order while removing duplicates.
+    return list(dict.fromkeys(flags))
+
+
+def _build_sample_model_route(brief: ClientBrief, governance_flags: list[str], proposal: Proposal) -> dict:
+    use_strong = proposal.status in {"pending_review", "rejected"} or brief.acreage >= 80 or len(governance_flags) > 1
+    selected_model = settings.route_model_strong_name if use_strong else settings.route_model_lite_name
+    retrieval_confidence = 0.68 if use_strong else 0.84
+
+    return {
+        "router_enabled": settings.route_model_router_enabled,
+        "complexity_score": round(min(1.0, max(0.35, float(brief.acreage) / 200.0)), 2),
+        "retrieval_confidence": retrieval_confidence,
+        "initial_model": settings.route_model_lite_name,
+        "selected_model": selected_model,
+        "cascade_applied": use_strong,
+        "route_reason": "seeded_sample_backfill",
+        "cascade_reason": "seeded_review_state" if use_strong else "not_required",
+    }
+
+
+def _backfill_proposal_observability(db: SessionLocal) -> None:
+    proposals = db.query(Proposal).all()
+    if not proposals:
+        return
+
+    brief_ids = {proposal.brief_id for proposal in proposals}
+    briefs = db.query(ClientBrief).filter(ClientBrief.id.in_(brief_ids)).all()
+    brief_by_id = {brief.id: brief for brief in briefs}
+
+    mutated = False
+    for proposal in proposals:
+        brief = brief_by_id.get(proposal.brief_id)
+        if not brief:
+            continue
+
+        governance_flags = _build_sample_governance_flags(brief, proposal)
+        model_route = proposal.model_route or _build_sample_model_route(brief, governance_flags, proposal)
+        trace_id = proposal.trace_id or f"trace_seed_proposal_{proposal.id}"
+
+        if proposal.governance_flags != governance_flags:
+            proposal.governance_flags = governance_flags
+            mutated = True
+
+        if proposal.model_route != model_route:
+            proposal.model_route = model_route
+            mutated = True
+
+        if proposal.trace_id != trace_id:
+            proposal.trace_id = trace_id
+            mutated = True
+
+        audit_log = (
+            db.query(AuditLog)
+            .filter(
+                AuditLog.action == "proposal_generated",
+                AuditLog.entity_type == "proposal",
+                AuditLog.entity_id == proposal.id,
+            )
+            .order_by(AuditLog.timestamp.desc())
+            .first()
+        )
+        expected_payload = {"trace_id": trace_id, "model_route": model_route}
+        if audit_log and audit_log.payload != expected_payload:
+            audit_log.payload = expected_payload
+            mutated = True
+
+    if mutated:
+        db.commit()
+
+
+def _ensure_compat_schema() -> None:
+    inspector = inspect(engine)
+    table_names = set(inspector.get_table_names())
+    if "proposals" not in table_names:
+        return
+
+    proposal_columns = {column["name"] for column in inspector.get_columns("proposals")}
+    missing_statements: list[str] = []
+
+    if "trace_id" not in proposal_columns:
+        if engine.dialect.name == "postgresql":
+            missing_statements.append("ALTER TABLE proposals ADD COLUMN trace_id VARCHAR(80) DEFAULT ''")
+        else:
+            missing_statements.append("ALTER TABLE proposals ADD COLUMN trace_id VARCHAR(80) DEFAULT ''")
+
+    if "model_route" not in proposal_columns:
+        if engine.dialect.name == "postgresql":
+            missing_statements.append("ALTER TABLE proposals ADD COLUMN model_route JSON DEFAULT '{}'::json")
+        else:
+            missing_statements.append("ALTER TABLE proposals ADD COLUMN model_route JSON DEFAULT '{}' ")
+
+    if not missing_statements:
+        return
+
+    with engine.begin() as connection:
+        for statement in missing_statements:
+            connection.execute(text(statement))
+
+
 @app.on_event("startup")
 def startup_event() -> None:
     Base.metadata.create_all(bind=engine)
+    _ensure_compat_schema()
     db = SessionLocal()
     try:
         for role_name in ["sales_user", "reviewer", "admin"]:
@@ -140,14 +256,22 @@ def startup_event() -> None:
         created_proposal_ids = []
         if db.query(Proposal).count() == 0:
             for brief_id, p in zip(all_brief_ids, sample_proposals):
+                brief = db.query(ClientBrief).filter(ClientBrief.id == brief_id).first()
                 prop = Proposal(brief_id=brief_id, **p)
                 db.add(prop)
                 db.flush()
+                if brief:
+                    prop.governance_flags = _build_sample_governance_flags(brief, prop)
+                    prop.trace_id = f"trace_seed_proposal_{prop.id}"
+                    prop.model_route = _build_sample_model_route(brief, prop.governance_flags, prop)
                 if sales_user:
                     db.add(AuditLog(actor_id=sales_user.id, action="proposal_generated",
-                                    entity_type="proposal", entity_id=prop.id, payload={}))
+                                    entity_type="proposal", entity_id=prop.id,
+                                    payload={"trace_id": prop.trace_id, "model_route": prop.model_route}))
                 created_proposal_ids.append(prop.id)
             db.commit()
+
+        _backfill_proposal_observability(db)
 
         all_proposal_ids = created_proposal_ids or [
             row.id for row in db.query(Proposal.id).all()

@@ -16,6 +16,16 @@ class Settings(BaseSettings):
     chroma_collection: str = "suncarban_docs"
     retrieval_top_k: int = 3
     retrieval_confidence_threshold: float = 0.60
+    enable_langfuse: bool = False
+    langfuse_public_key: str = ""
+    langfuse_secret_key: str = ""
+    langfuse_host: str = "https://cloud.langfuse.com"
+    route_model_router_enabled: bool = True
+    route_model_complexity_threshold: float = 0.45
+    route_model_confidence_threshold: float = 0.70
+    route_model_cascade_enabled: bool = True
+    route_model_lite_name: str = "deterministic-lite"
+    route_model_strong_name: str = "deterministic-strong"
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
 

@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Token(BaseModel):
@@ -76,9 +76,10 @@ class ProposalResponse(BaseModel):
     citations: list
     governance_flags: list
     status: str
+    trace_id: str | None = None
+    model_route: dict | None = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True, protected_namespaces=())
 
 
 class DocumentResponse(BaseModel):
@@ -138,6 +139,7 @@ class AuditLogResponse(BaseModel):
     action: str
     entity_type: str
     entity_id: int
+    payload: dict
     timestamp: datetime
 
     class Config:

@@ -33,6 +33,8 @@ export default function AuditTrailPage() {
             <th className="py-2">Action</th>
             <th className="py-2">Entity</th>
             <th className="py-2">Entity ID</th>
+            <th className="py-2">Trace</th>
+            <th className="py-2">Model</th>
             <th className="py-2">Timestamp</th>
           </tr>
         </thead>
@@ -42,6 +44,8 @@ export default function AuditTrailPage() {
               <td className="py-2">{row.action}</td>
               <td className="py-2">{row.entity_type}</td>
               <td className="py-2">{row.entity_id}</td>
+              <td className="py-2 text-xs text-slate-600">{String(row.payload?.trace_id ?? "-")}</td>
+              <td className="py-2 text-xs text-slate-600">{String((row.payload?.model_route as { selected_model?: string } | undefined)?.selected_model ?? "-")}</td>
               <td className="py-2">{new Date(row.timestamp).toLocaleString()}</td>
             </tr>
           ))}

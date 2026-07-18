@@ -22,6 +22,8 @@ def test_workflow_returns_structured_result():
     assert len(result.recommendations) >= 1
     assert len(result.sources) >= 1
     assert "executive_summary" in result.proposal
+    assert result.workflow_metadata["trace_id"].startswith("trace_")
+    assert result.workflow_metadata["model_route"]["selected_model"]
 
 
 def test_workflow_adds_governance_flags_for_missing_inputs():
@@ -43,3 +45,4 @@ def test_workflow_adds_governance_flags_for_missing_inputs():
 
     assert "Incomplete brief fields" in result.governance_flags
     assert "Pricing inputs missing" in result.governance_flags
+    assert result.workflow_metadata["model_route"]["cascade_applied"] is True
