@@ -61,6 +61,36 @@ export default function DashboardPage() {
         Refresh Metrics
       </button>
       <p className="text-sm text-slate-700">{message}</p>
+      <SectionCard title="Loaded Metrics (Table)">
+        <div className="overflow-x-auto rounded border border-slate-200">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 text-slate-600">
+              <tr>
+                <th className="px-3 py-2">Metric</th>
+                <th className="px-3 py-2">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-t border-slate-100">
+                <td className="px-3 py-2">Active Briefs</td>
+                <td className="px-3 py-2">{briefCount}</td>
+              </tr>
+              <tr className="border-t border-slate-100">
+                <td className="px-3 py-2">Pending Reviews</td>
+                <td className="px-3 py-2">{pendingReviewCount}</td>
+              </tr>
+              <tr className="border-t border-slate-100">
+                <td className="px-3 py-2">Strong Route Runs</td>
+                <td className="px-3 py-2">{strongRouteCount}</td>
+              </tr>
+              <tr className="border-t border-slate-100">
+                <td className="px-3 py-2">Latest Trace ID</td>
+                <td className="px-3 py-2">{latestTraceId || "Not loaded"}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </SectionCard>
       <SectionCard title="Workflow Test Accounts">
         <p className="mb-4 text-sm text-slate-600">
           Use these accounts to test the sales-to-reviewer workflow after uploading data. They are seeded at startup and

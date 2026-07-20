@@ -94,50 +94,99 @@ export default function ReviewWorkflowPage() {
         </div>
         {message ? <p className="mt-2 text-sm text-slate-700">{message}</p> : null}
         {selectedProposal ? (
-          <div className="mt-3 rounded border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
-            <p>
-              <strong>Selected Proposal:</strong> #{selectedProposal.id}
-            </p>
-            <p>
-              <strong>Status:</strong> {selectedProposal.status}
-            </p>
-            <p>
-              <strong>Trace ID:</strong> {selectedProposal.trace_id || "Not available"}
-            </p>
-            <p>
-              <strong>Selected Model:</strong> {String(selectedProposal.model_route?.selected_model ?? "Unknown")}
-            </p>
-            <p>
-              <strong>Governance Flags:</strong> {selectedProposal.governance_flags.join(", ") || "None"}
-            </p>
+          <div className="mt-3 overflow-x-auto rounded border border-slate-200 bg-slate-50">
+            <table className="w-full text-left text-sm text-slate-700">
+              <thead className="bg-slate-100 text-slate-600">
+                <tr>
+                  <th className="px-3 py-2">Proposal ID</th>
+                  <th className="px-3 py-2">Status</th>
+                  <th className="px-3 py-2">Trace ID</th>
+                  <th className="px-3 py-2">Selected Model</th>
+                  <th className="px-3 py-2">Governance Flags</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-t border-slate-200">
+                  <td className="px-3 py-2">{selectedProposal.id}</td>
+                  <td className="px-3 py-2">{selectedProposal.status}</td>
+                  <td className="px-3 py-2">{selectedProposal.trace_id || "Not available"}</td>
+                  <td className="px-3 py-2">{String(selectedProposal.model_route?.selected_model ?? "Unknown")}</td>
+                  <td className="px-3 py-2">{selectedProposal.governance_flags.join(", ") || "None"}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         ) : null}
-        <ul className="mt-3 space-y-2 text-sm">
-          {reviews.map((row) => (
-            <li key={row.id} className="rounded border border-slate-200 bg-slate-50 p-2">
-              #{row.id} - {row.decision} - {row.comments}
-            </li>
-          ))}
-        </ul>
+        <div className="mt-3 overflow-x-auto rounded border border-slate-200">
+          <table className="w-full text-left text-sm text-slate-700">
+            <thead className="bg-slate-50 text-slate-600">
+              <tr>
+                <th className="px-3 py-2">Review ID</th>
+                <th className="px-3 py-2">Proposal ID</th>
+                <th className="px-3 py-2">Decision</th>
+                <th className="px-3 py-2">Comments</th>
+                <th className="px-3 py-2">Created At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reviews.length === 0 ? (
+                <tr>
+                  <td className="px-3 py-3 text-slate-500" colSpan={5}>No reviews loaded.</td>
+                </tr>
+              ) : null}
+              {reviews.map((row) => (
+                <tr key={row.id} className="border-t border-slate-100">
+                  <td className="px-3 py-2">{row.id}</td>
+                  <td className="px-3 py-2">{row.proposal_id}</td>
+                  <td className="px-3 py-2">{row.decision}</td>
+                  <td className="px-3 py-2">{row.comments}</td>
+                  <td className="px-3 py-2">{new Date(row.created_at).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </SectionCard>
       <SectionCard title="Recent Proposals For Review">
-        <div className="space-y-2 text-sm text-slate-700">
-          {recentProposals.length === 0 ? <p>No proposals loaded.</p> : null}
-          {recentProposals.map((proposal) => (
-            <button
-              key={proposal.id}
-              type="button"
-              onClick={() => selectProposal(proposal)}
-              className="block w-full rounded border border-slate-200 bg-slate-50 p-3 text-left"
-            >
-              <p>
-                <strong>Proposal #{proposal.id}</strong> for brief #{proposal.brief_id}
-              </p>
-              <p>Status: {proposal.status}</p>
-              <p>Model: {String(proposal.model_route?.selected_model ?? "Unknown")}</p>
-              <p>Trace: {proposal.trace_id || "Not available"}</p>
-            </button>
-          ))}
+        <div className="overflow-x-auto rounded border border-slate-200">
+          <table className="w-full text-left text-sm text-slate-700">
+            <thead className="bg-slate-50 text-slate-600">
+              <tr>
+                <th className="px-3 py-2">Proposal ID</th>
+                <th className="px-3 py-2">Brief ID</th>
+                <th className="px-3 py-2">Status</th>
+                <th className="px-3 py-2">Model</th>
+                <th className="px-3 py-2">Trace</th>
+                <th className="px-3 py-2">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {recentProposals.length === 0 ? (
+                <tr>
+                  <td className="px-3 py-3 text-slate-500" colSpan={6}>No proposals loaded.</td>
+                </tr>
+              ) : null}
+              {recentProposals.map((proposal) => (
+                <tr key={proposal.id} className="border-t border-slate-100">
+                  <td className="px-3 py-2">{proposal.id}</td>
+                  <td className="px-3 py-2">{proposal.brief_id}</td>
+                  <td className="px-3 py-2">{proposal.status}</td>
+                  <td className="px-3 py-2">{String(proposal.model_route?.selected_model ?? "Unknown")}</td>
+                  <td className="px-3 py-2">{proposal.trace_id || "Not available"}</td>
+                  <td className="px-3 py-2">
+                    <button
+                      key={`select-${proposal.id}`}
+                      type="button"
+                      onClick={() => selectProposal(proposal)}
+                      className="rounded bg-slate-700 px-2 py-1 text-xs text-white"
+                    >
+                      Select
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </SectionCard>
     </div>

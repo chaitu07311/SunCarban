@@ -21,6 +21,11 @@ export default function BriefPage() {
     commercial_notes: "Pilot with two clusters",
   });
   const [briefId, setBriefId] = useState<number | null>(null);
+  const [validationResult, setValidationResult] = useState<{
+    is_ready_for_proposal: boolean;
+    missing_fields: string[];
+    ambiguous_fields: string[];
+  } | null>(null);
   const [message, setMessage] = useState("");
 
   function update<K extends keyof BriefPayload>(key: K, value: BriefPayload[K]) {
@@ -31,6 +36,7 @@ export default function BriefPage() {
     try {
       const created = await createBrief(form);
       setBriefId(created.id);
+      setValidationResult(null);
       setMessage(`Brief created: #${created.id}`);
     } catch (error) {
       setMessage((error as Error).message);
@@ -44,9 +50,8 @@ export default function BriefPage() {
     }
     try {
       const result = await validateBrief(briefId);
-      setMessage(
-        `Validation ready=${result.is_ready_for_proposal}; missing=[${result.missing_fields.join(", ")}]; ambiguous=[${result.ambiguous_fields.join(", ")}]`,
-      );
+      setValidationResult(result);
+      setMessage("Validation results loaded.");
     } catch (error) {
       setMessage((error as Error).message);
     }
@@ -97,7 +102,34 @@ export default function BriefPage() {
           Validate Brief
         </button>
       </div>
-      {briefId ? <p className="mt-3 text-sm text-slate-700">Latest brief id: #{briefId}</p> : null}
+      {(briefId || validationResult) ? (
+        <div className="mt-4 overflow-x-auto rounded border border-slate-200">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 text-slate-600">
+              <tr>
+                <th className="px-3 py-2">Latest Brief ID</th>
+                <th className="px-3 py-2">Ready For Proposal</th>
+                <th className="px-3 py-2">Missing Fields</th>
+                <th className="px-3 py-2">Ambiguous Fields</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-t border-slate-100">
+                <td className="px-3 py-2 text-slate-800">{briefId ? `#${briefId}` : "-"}</td>
+                <td className="px-3 py-2 text-slate-700">
+                  {validationResult ? (validationResult.is_ready_for_proposal ? "Yes" : "No") : "-"}
+                </td>
+                <td className="px-3 py-2 text-slate-700">
+                  {validationResult ? (validationResult.missing_fields.join(", ") || "None") : "-"}
+                </td>
+                <td className="px-3 py-2 text-slate-700">
+                  {validationResult ? (validationResult.ambiguous_fields.join(", ") || "None") : "-"}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      ) : null}
       {message ? <p className="mt-2 text-sm text-slate-700">{message}</p> : null}
     </SectionCard>
   );

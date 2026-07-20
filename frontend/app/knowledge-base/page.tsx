@@ -169,59 +169,61 @@ export default function KnowledgeBasePage() {
       </div>
 
       <SectionCard title="Upload History">
-        <table className="w-full text-left text-sm">
-          <thead>
-            <tr className="border-b text-slate-500">
-              <th className="py-2 pr-4">Document</th>
-              <th className="py-2 pr-4">Brief ID</th>
-              <th className="py-2 pr-4">Ver.</th>
-              <th className="py-2 pr-4">Chunks</th>
-              <th className="py-2 pr-4">Status</th>
-              <th className="py-2 pr-4">Indexed At</th>
-              <th className="py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {latestDocs.length === 0 ? (
+        <div className="overflow-x-auto rounded border border-slate-200">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 text-slate-600">
               <tr>
-                <td className="py-3 text-slate-400" colSpan={7}>
-                  No indexed documents yet. Upload a file above and click Refresh Summary.
-                </td>
+                <th className="px-3 py-2">Document</th>
+                <th className="px-3 py-2">Brief ID</th>
+                <th className="px-3 py-2">Ver.</th>
+                <th className="px-3 py-2">Chunks</th>
+                <th className="px-3 py-2">Status</th>
+                <th className="px-3 py-2">Indexed At</th>
+                <th className="px-3 py-2">Action</th>
               </tr>
-            ) : null}
-            {latestDocs.map((doc) => (
-              <tr key={`${doc.document_id}-${doc.version}`} className="border-b border-slate-100 hover:bg-slate-50">
-                <td className="py-2 pr-4 font-medium">{doc.file_name}</td>
-                <td className="py-2 pr-4">{doc.brief_id}</td>
-                <td className="py-2 pr-4">v{doc.version}</td>
-                <td className="py-2 pr-4">{doc.chunk_count}</td>
-                <td className="py-2 pr-4">
-                  <span className="rounded bg-emerald-100 px-2 py-0.5 text-xs text-emerald-800">
-                    indexed
-                  </span>
-                </td>
-                <td className="py-2 pr-4 text-slate-600">{new Date(doc.indexed_at).toLocaleString()}</td>
-                <td className="py-2">
-                  <button
-                    type="button"
-                    className="rounded bg-slate-700 px-2 py-1 text-xs text-white hover:bg-slate-900"
-                    onClick={async () => {
-                      try {
-                        const result = await reindexDocument(doc.document_id);
-                        setMessage(`Re-indexed #${result.document_id} → ${result.chunk_count} chunks`);
-                        await loadSummary();
-                      } catch (err) {
-                        setMessage((err as Error).message);
-                      }
-                    }}
-                  >
-                    Re-index
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {latestDocs.length === 0 ? (
+                <tr>
+                  <td className="px-3 py-3 text-slate-500" colSpan={7}>
+                    No indexed documents yet. Upload a file above and click Refresh Summary.
+                  </td>
+                </tr>
+              ) : null}
+              {latestDocs.map((doc) => (
+                <tr key={`${doc.document_id}-${doc.version}`} className="border-t border-slate-100 hover:bg-slate-50">
+                  <td className="px-3 py-2 font-medium">{doc.file_name}</td>
+                  <td className="px-3 py-2">{doc.brief_id}</td>
+                  <td className="px-3 py-2">v{doc.version}</td>
+                  <td className="px-3 py-2">{doc.chunk_count}</td>
+                  <td className="px-3 py-2">
+                    <span className="rounded bg-emerald-100 px-2 py-0.5 text-xs text-emerald-800">
+                      indexed
+                    </span>
+                  </td>
+                  <td className="px-3 py-2 text-slate-600">{new Date(doc.indexed_at).toLocaleString()}</td>
+                  <td className="px-3 py-2">
+                    <button
+                      type="button"
+                      className="rounded bg-slate-700 px-2 py-1 text-xs text-white hover:bg-slate-900"
+                      onClick={async () => {
+                        try {
+                          const result = await reindexDocument(doc.document_id);
+                          setMessage(`Re-indexed #${result.document_id} -> ${result.chunk_count} chunks`);
+                          await loadSummary();
+                        } catch (err) {
+                          setMessage((err as Error).message);
+                        }
+                      }}
+                    >
+                      Re-index
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </SectionCard>
     </div>
   );

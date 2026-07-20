@@ -72,46 +72,131 @@ export default function ProposalViewerPage() {
         </div>
         {message ? <p className="mb-2 text-sm text-slate-700">{message}</p> : null}
         {proposal ? (
-          <div className="mb-3 rounded border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
-            <p>
-              <strong>Trace ID:</strong> {proposal.trace_id || "Not available"}
-            </p>
-            <p>
-              <strong>Selected Model:</strong> {String(proposal.model_route?.selected_model ?? "Unknown")}
-            </p>
+          <div className="mb-3 overflow-x-auto rounded border border-slate-200 bg-slate-50">
+            <table className="w-full text-left text-sm text-slate-700">
+              <thead className="bg-slate-100 text-slate-600">
+                <tr>
+                  <th className="px-3 py-2">Proposal ID</th>
+                  <th className="px-3 py-2">Brief ID</th>
+                  <th className="px-3 py-2">Status</th>
+                  <th className="px-3 py-2">Trace ID</th>
+                  <th className="px-3 py-2">Selected Model</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-t border-slate-200">
+                  <td className="px-3 py-2">{proposal.id}</td>
+                  <td className="px-3 py-2">{proposal.brief_id}</td>
+                  <td className="px-3 py-2">{proposal.status}</td>
+                  <td className="px-3 py-2">{proposal.trace_id || "Not available"}</td>
+                  <td className="px-3 py-2">{String(proposal.model_route?.selected_model ?? "Unknown")}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         ) : null}
-        <pre className="overflow-auto rounded border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">{content || "No proposal loaded."}</pre>
+        <div className="overflow-x-auto rounded border border-slate-200">
+          <table className="w-full text-left text-sm text-slate-700">
+            <thead className="bg-slate-50 text-slate-600">
+              <tr>
+                <th className="px-3 py-2">Field</th>
+                <th className="px-3 py-2">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {!proposal ? (
+                <tr>
+                  <td className="px-3 py-3 text-slate-500" colSpan={2}>No proposal loaded.</td>
+                </tr>
+              ) : (
+                Object.entries(proposal).map(([key, value]) => (
+                  <tr key={key} className="border-t border-slate-100 align-top">
+                    <td className="px-3 py-2 font-medium">{key}</td>
+                    <td className="px-3 py-2 whitespace-pre-wrap break-words">
+                      {value === null || value === undefined
+                        ? "-"
+                        : typeof value === "object"
+                          ? JSON.stringify(value, null, 2)
+                          : String(value)}
+                    </td>
+                  </tr>
+                ))
+              )}
+              {proposal ? (
+                <tr className="border-t border-slate-100 align-top">
+                  <td className="px-3 py-2 font-medium">content_preview</td>
+                  <td className="px-3 py-2 whitespace-pre-wrap break-words">{content || "-"}</td>
+                </tr>
+              ) : null}
+            </tbody>
+          </table>
+        </div>
       </SectionCard>
       <SectionCard title="Recent Proposals">
-        <div className="space-y-2 text-sm">
-          {recentProposals.length === 0 ? <p className="text-slate-600">No proposals loaded.</p> : null}
-          {recentProposals.map((row) => (
-            <button
-              key={row.id}
-              type="button"
-              onClick={() => selectProposal(row)}
-              className="block w-full rounded border border-slate-200 bg-slate-50 p-3 text-left text-slate-700"
-            >
-              <p>
-                <strong>Proposal #{row.id}</strong> for brief #{row.brief_id}
-              </p>
-              <p>Status: {row.status}</p>
-              <p>Trace: {row.trace_id || "Not available"}</p>
-              <p>Model: {String(row.model_route?.selected_model ?? "Unknown")}</p>
-            </button>
-          ))}
+        <div className="overflow-x-auto rounded border border-slate-200">
+          <table className="w-full text-left text-sm text-slate-700">
+            <thead className="bg-slate-50 text-slate-600">
+              <tr>
+                <th className="px-3 py-2">Proposal ID</th>
+                <th className="px-3 py-2">Brief ID</th>
+                <th className="px-3 py-2">Status</th>
+                <th className="px-3 py-2">Trace</th>
+                <th className="px-3 py-2">Model</th>
+                <th className="px-3 py-2">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {recentProposals.length === 0 ? (
+                <tr>
+                  <td className="px-3 py-3 text-slate-500" colSpan={6}>No proposals loaded.</td>
+                </tr>
+              ) : null}
+              {recentProposals.map((row) => (
+                <tr key={row.id} className="border-t border-slate-100">
+                  <td className="px-3 py-2">{row.id}</td>
+                  <td className="px-3 py-2">{row.brief_id}</td>
+                  <td className="px-3 py-2">{row.status}</td>
+                  <td className="px-3 py-2">{row.trace_id || "Not available"}</td>
+                  <td className="px-3 py-2">{String(row.model_route?.selected_model ?? "Unknown")}</td>
+                  <td className="px-3 py-2">
+                    <button
+                      type="button"
+                      onClick={() => selectProposal(row)}
+                      className="rounded bg-slate-700 px-2 py-1 text-xs text-white"
+                    >
+                      Load
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </SectionCard>
       <SectionCard title="Source Citations">
-        <ul className="list-disc pl-5 text-sm text-slate-700">
-          {citations.length === 0 ? <li>No citations loaded.</li> : null}
-          {citations.map((row, index) => (
-            <li key={`${index}-${String(row.document ?? row.section ?? "source")}`}>
-              {String(row.document ?? "Source")} - {String(row.section ?? "Section")}
-            </li>
-          ))}
-        </ul>
+        <div className="overflow-x-auto rounded border border-slate-200">
+          <table className="w-full text-left text-sm text-slate-700">
+            <thead className="bg-slate-50 text-slate-600">
+              <tr>
+                <th className="px-3 py-2">Source</th>
+                <th className="px-3 py-2">Section</th>
+              </tr>
+            </thead>
+            <tbody>
+              {citations.length === 0 ? (
+                <tr>
+                  <td className="px-3 py-3 text-slate-500" colSpan={2}>No citations loaded.</td>
+                </tr>
+              ) : null}
+              {citations.map((row, index) => (
+                <tr key={`${index}-${String(row.document ?? row.section ?? "source")}`} className="border-t border-slate-100">
+                  <td className="px-3 py-2">{String(row.document ?? "Source")}</td>
+                  <td className="px-3 py-2">{String(row.section ?? "Section")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </SectionCard>
     </div>
   );
